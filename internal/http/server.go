@@ -1,7 +1,7 @@
 package http
 
 import (
-	"WB_L0/models"
+	"WB_L0/internal/models"
 	"encoding/json"
 	"net/http"
 	"strconv"

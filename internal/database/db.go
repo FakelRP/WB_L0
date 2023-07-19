@@ -1,7 +1,7 @@
 package database
 
 import (
-	"WB_L0/models"
+	"WB_L0/internal/models"
 	"database/sql"
 	"encoding/json"
 	"fmt"
