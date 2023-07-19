@@ -1,9 +1,9 @@
 package main
 
 import (
-	"WB_L0/database"
-	"WB_L0/models"
-	"WB_L0/stan/stan-sub"
+	"WB_L0/internal/consumer"
+	"WB_L0/internal/database"
+	"WB_L0/internal/models"
 	"log"
 )
 
@@ -21,7 +21,7 @@ func main() {
 	defer db.Close()
 
 	// Подключение к NATS Streaming серверу и подписка на канал
-	stan_sub.SubscribeToNATS("", Cache, db)
+	consumer.SubscribeToNATS(Cache, db)
 
 	// Восстановление кеша из Postgres при запуске сервиса.
 	err = database.RestoreCacheFromDB(Cache, db)

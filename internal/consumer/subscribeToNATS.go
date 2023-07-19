@@ -1,8 +1,8 @@
-package stan_sub
+package consumer
 
 import (
-	"WB_L0/database"
-	"WB_L0/models"
+	"WB_L0/internal/database"
+	"WB_L0/internal/models"
 	"database/sql"
 	"encoding/json"
 	"flag"
@@ -117,7 +117,7 @@ func SubscribeToNATS(cache *models.Cache, db *sql.DB) {
 		}
 
 		// Сохранение данных в кеше.
-		models.Cache{}.Data[message.OrderUID] = messagegit
+		models.Cache{}.Data[message.OrderUID] = message
 
 		// Сохранение данных в Postgres.
 		err = database.SaveMessageToDB(message, db)
