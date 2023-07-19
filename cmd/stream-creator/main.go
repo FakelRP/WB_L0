@@ -8,13 +8,12 @@ import (
 )
 
 func main() {
-
 	url := os.Getenv("NATS_URL")
 	if url == "" {
 		url = nats.DefaultURL
 	}
 
-	nc, err := nats.Connect(url)
+	nc, err := nats.Connect("0.0.0.0:4222")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -23,7 +22,7 @@ func main() {
 
 	js, err := nc.JetStream()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Jetstream error - %f", err)
 	}
 
 	cfg := nats.StreamConfig{

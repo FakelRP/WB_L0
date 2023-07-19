@@ -9,3 +9,6 @@ install-nats:
 
 run-nats-js:
 	nats-server -js
+
+run-docker-js:
+	sudo docker run -p 4222:4222 -ti nats:latest -js
