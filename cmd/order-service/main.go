@@ -1,32 +1,36 @@
 package main
 
 import (
-	"WB_L0/internal/consumer"
-	"WB_L0/internal/database"
-	"WB_L0/internal/models"
-	"log"
+	cache "WB_L0/internal/cache/inmemory"
+	"fmt"
+	"time"
 )
 
 func main() {
 	// Создание кеша.
-	Cache := &models.Cache{
-		Data: make(map[string]models.Message),
-	}
+	Cache := cache.New(5*time.Minute, 10*time.Minute)
 
-	// Подключение к базе данных PostgreSQL.
-	db, err := database.ConnectToDB()
-	if err != nil {
-		log.Fatal("Failed to connect to DB:", err)
-	}
-	defer db.Close()
+	fmt.Println(Cache)
 
-	// Подключение к NATS Streaming серверу и подписка на канал
-	consumer.SubscribeToNATS(Cache, db)
+	// Добавление в кэш данных из канала
 
-	// Восстановление кеша из Postgres при запуске сервиса.
-	err = database.RestoreCacheFromDB(Cache, db)
-	if err != nil {
-		log.Println("Failed to restore cache from DB:", err)
-	}
+	//// Подключение к базе данных PostgreSQL.
+	//db, err := database.ConnectToDB()
+	//if err != nil {
+	//	log.Fatal("Failed to connect to DB:", err)
+	//}
+
+	//defer db.Close()
+	//
+
+	//// Подключение к NATS Streaming серверу и подписка на канал
+	//consumer.SubscribeToNATS(Cache, db)
+	//
+
+	//// Восстановление кеша из Postgres при запуске сервиса.
+	//err = database.RestoreCacheFromDB(Cache, db)
+	//if err != nil {
+	//	log.Println("Failed to restore cache from DB:", err)
+	//}
 
 }

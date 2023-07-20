@@ -1,7 +1,7 @@
 package inmemory
 
 import (
-	"WB_L0/internal/models"
+	"WB_L0/internal/repository/order"
 	"errors"
 	"sync"
 	"time"
@@ -17,7 +17,7 @@ type Cache struct {
 
 // Item Структура элемента
 type Item struct {
-	Value      models.Message
+	Value      order.Order
 	Created    time.Time
 	Expiration int64
 }
@@ -43,7 +43,7 @@ func New(defaultExpiration, cleanupInterval time.Duration) *Cache {
 }
 
 // Set Запись данных в кэш
-func (c *Cache) Set(key string, message models.Message, duration time.Duration) {
+func (c *Cache) Set(key string, order order.Order, duration time.Duration) {
 
 	var expiration int64
 
@@ -62,7 +62,7 @@ func (c *Cache) Set(key string, message models.Message, duration time.Duration) 
 	defer c.Unlock()
 
 	c.items[key] = Item{
-		Value:      message,
+		Value:      order,
 		Expiration: expiration,
 		Created:    time.Now(),
 	}

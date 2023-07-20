@@ -24,7 +24,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer nc.Drain()
+	defer nc.Close()
 
 	newJS, err := jetstream.New(nc)
 	if err != nil {
@@ -60,6 +60,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println()
 
 	ch <- true
 
