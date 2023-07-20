@@ -37,6 +37,7 @@ func (c *Consumer) Run() error {
 	var err error
 	c.consumeContext, err = c.natsConsumer.Consume(func(msg jetstream.Msg) {
 
+		fmt.Println()
 		fmt.Printf("message: %+v", msg)
 
 		err := c.handler.Handle(context.Background(), msg.Data())
@@ -45,7 +46,7 @@ func (c *Consumer) Run() error {
 		}
 		ack(msg)
 	})
-	if err != err {
+	if err != nil {
 		return fmt.Errorf("cannot consume. Err: %w", err)
 	}
 
